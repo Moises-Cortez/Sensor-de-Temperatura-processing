@@ -1,0 +1,18 @@
+import processing.serial.*;
+
+Serial puertoSerial;  // Objeto Serial para comunicarse con Arduino
+String puertoArduino = "COM5";  // Nombre del puerto al que está conectado el Arduino
+
+void setup() {
+  // Seleccionar el puerto COM5 y abrir la comunicación serial a 9600 baudios
+  puertoSerial = new Serial(this, puertoArduino, 9600);
+}
+
+void draw() {
+  if (puertoSerial.available() > 0) {  // Si hay datos disponibles en el puerto serial
+    String datosRecibidos = puertoSerial.readStringUntil('\n');  // Leer los datos hasta encontrar un salto de línea
+    if (datosRecibidos != null) {  // Si se han recibido datos válidos
+      println(datosRecibidos);  // Imprimir los datos en la consola de Processing
+    }
+  }
+}
